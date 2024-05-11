@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_bootstrap5",
+    "django_extensions",
+    "multiserver.app",
 ]
 
 MIDDLEWARE = [
@@ -127,3 +130,9 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Custom settings
+
+# Media files
+
+MEDIA_ROOT = BASE_DIR / "media"

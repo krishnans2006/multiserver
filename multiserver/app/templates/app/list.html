@@ -1,0 +1,48 @@
+<table class="table table-striped table-sm table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Repo URL</th>
+      <th>Port</th>
+      <th>Initialized?</th>
+      <th>Changes Applied?</th>
+      <th>Enabled?</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for server in servers %}
+    <tr>
+      <td>
+        {{ server.name }}
+        &nbsp;
+        <a href="{% url 'app:detail' server.id %}" class="link-info">
+          <i class="bi bi-arrow-up-right-square"></i>
+        </a>
+      </td>
+      <td>{{ server.repo_url }}</td>
+      <td>{{ server.port }}</td>
+      <td>
+        {% if server.initialized %}
+        <i class="bi bi-check-circle-fill text-success"></i>
+        {% else %}
+        <i class="bi bi-x-circle-fill text-danger"></i>
+        {% endif %}
+      </td>
+      <td>
+        {% if server.systemd_applied and server.nginx_applied %}
+        <i class="bi bi-check-circle-fill text-success"></i>
+        {% else %}
+        <i class="bi bi-x-circle-fill text-danger"></i>
+        {% endif %}
+      </td>
+      <td>
+        {% if server.enabled %}
+        <i class="bi bi-check-circle-fill text-success"></i>
+        {% else %}
+        <i class="bi bi-x-circle-fill text-danger"></i>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

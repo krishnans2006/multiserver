@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}: Manage Servers{% endblock %}
+
+{% block content %}
+<h1>Servers</h1>
+{% include 'app/list.html' with servers=servers %}
+
+
+<a href="{% url 'app:create' %}" class="btn btn-primary">
+    <i class="bi bi-plus-square"></i>
+    &nbsp;
+    Create Server
+</a>
+
+<a href="{% url 'admin:app_server_changelist' %}" class="btn">
+    <i class="bi bi-gear"></i>
+    Admin
+</a>
+{% endblock %}

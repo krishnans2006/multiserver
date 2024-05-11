@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}: Server Detail{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center">
+  <h1>{{ server.name }}</h1>
+  &emsp;
+  <div class="btn-group">
+    <a href="{% url 'app:update' server.id %}" class="btn btn-secondary btn-sm">Edit</a>
+    <a href="{% url 'app:delete' server.id %}" class="btn btn-danger btn-sm">Delete</a>
+  </div>
+</div>
+<p>{{ server.description }}</p>
+
+<ul class="list-group">
+  <li class="list-group-item"><strong>Service Name:</strong> {{ server.service_name }}</li>
+  <li class="list-group-item"><strong>Domain Name:</strong> {{ server.domain_name }}</li>
+  <li class="list-group-item"><strong>Repo URL:</strong> {{ server.repo_url }}</li>
+  <li class="list-group-item"><strong>Port:</strong> {{ server.port }}</li>
+</ul>
+<br />
+
+{% if not server.initialized %}
+<a href="{% url 'app:initialize' server.id %}" class="btn btn-success">Initialize</a>
+{% else %}
+{% if not server.systemd_applied %}
+<a href="{% url 'app:apply_systemd' server.id %}" class="btn btn-primary">Apply Systemd</a>
+{% endif %}
+{% if not server.nginx_applied %}
+<a href="{% url 'app:apply_nginx' server.id %}" class="btn btn-primary">Apply Nginx</a>
+{% endif %}
+{% if not server.systemd_applied and not server.nginx_applied %}
+<a href="{% url 'app:apply_all' server.id %}" class="btn btn-primary">Apply All</a>
+{% endif %}
+{% if server.enabled %}
+<a href="{% url 'app:disable' server.id %}" class="btn btn-danger">Disable</a>
+{% else %}
+<a href="{% url 'app:enable' server.id %}" class="btn btn-success">Enable</a>
+{% endif %}
+{% endif %}
+
+<a href="{% url 'app:list' %}" class="btn btn-primary">
+  <i class="bi bi-arrow-left"></i>
+  Back to Server List
+</a>
+
+<a href="{% url 'admin:app_server_change' server.id %}" class="btn">
+  <i class="bi bi-gear"></i>
+  Admin
+</a>
+{% endblock %}
